@@ -18,8 +18,6 @@ void simpleFunctionEvaluator(event_based_actor *self,  vector<int> coeficients )
             while( exponent >= 1){
                 y+= coeficients.at(coeficients.size() - exponent ) * (pow(x,exponent -1));
                 exponent--;
-                //aout(self) << "Temp Y : " << y << endl;
-
             }
 
             self->send( actor_cast<actor>( self->current_sender()), x,y);
@@ -44,7 +42,6 @@ void sendDemo(event_based_actor *self,const actor& evaluatorNode)
                             cout << "Results : "<< endl;
                             cout << "X : " << X<< endl;
                             cout << "Y : " << Y << endl;
-                            //cin >> ended;
                             double x = 0.0;
                             cout << " Enter the value of X : " ;
                             cin >> x;

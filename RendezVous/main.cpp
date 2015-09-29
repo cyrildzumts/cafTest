@@ -25,6 +25,7 @@
 #include <caf/all.hpp>
 #include <caf/io/all.hpp>
 using namespace caf;
+using namespace std;
 
 using CALC_ATOM = caf::atom_constant<caf::atom("calc")>;
 using STOP_ATOM = caf::atom_constant<caf::atom("stop")>;
@@ -37,7 +38,7 @@ std::string groupModule{"local"};
 
 
 
-void simpleFunctionEvaluator(caf::event_based_actor *self,  vector<int> coeficients );
+void simpleFunctionEvaluator(caf::event_based_actor *self);
 void manager(caf::event_based_actor* self);
 actor createWorker(const actor &managerNode);
 
@@ -98,11 +99,11 @@ int main(int argc, char** argv) {
   shutdown();
 }
 
-void simpleFunctionEvaluator(caf::event_based_actor *self, const actor& managerNode)
+void simpleFunctionEvaluator(caf::event_based_actor *self)
 {
     std::vector<int>coeficients{1, 1, 1, 1, 1};
     self->become (
-        [self](CALC_ATOM, const double &x){
+        [=](CALC_ATOM, const double &x){
             double y = 0.0;
             auto exponent = coeficients.size() ;
             while( exponent >= 1){
@@ -110,7 +111,7 @@ void simpleFunctionEvaluator(caf::event_based_actor *self, const actor& managerN
                 exponent--;
             }
 
-            self->send( managerNode, x,y);
+            self->send( actor_cast<actor>(self->current_sender()), x,y);
         },
         [=](STOP_ATOM){
             aout(self) << "Quitting " <<endl;
@@ -121,30 +122,9 @@ void simpleFunctionEvaluator(caf::event_based_actor *self, const actor& managerN
 
 void manager(caf::event_based_actor *self)
 {
-    auto localgroup = caf::group::get(groupModule, groupID);
-    self->join(localgroup);
-    auto pool = actor_pool::make(1,createWorker,caf::actor_pool::broadcast());;
+    //Suscribe to group
+    // create a Pool with N worker
+    // receive request from clients
 
-    self->become(
-                   [=](REQUEST_ATOM, double &x){
-                    caf::actor sender = actor_cast<actor>(self->current_sender());
-                    self->send(pool,CALC_ATOM::value, x);
-                    self->become(keep_behavior,
-                                [=](double &x, double y){
-                                    self->send(sender,x,y);
-                                    self->unbecome();
-                                }
-
-                                );
-                },
-                caf::after(std::chrono::seconds(1)) >> [] {
-                   self->send(localgroup,"busy");
-        }
-                );
 }
 
-
-caf::actor createWorker ()
-{
-    return caf::spawn(simpleFunctionEvaluator);
-}

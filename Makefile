@@ -31,7 +31,8 @@ SUBTARGETS    =  \
 		sub-FunctionEvaluator \
 		sub-SimpleChatClient \
 		sub-SimpleChatServer \
-		sub-FortuneServer
+		sub-FortuneServer \
+		sub-RendezVous
 
 
 sub-FunctionEvaluator-qmake_all:  FORCE
@@ -134,6 +135,31 @@ sub-FortuneServer-install_subtargets: FORCE
 sub-FortuneServer-uninstall_subtargets: FORCE
 	@test -d FortuneServer/ || mkdir -p FortuneServer/
 	cd FortuneServer/ && ( test -e Makefile || $(QMAKE) /home/cyrildz/Project/CafActorTest/FortuneServer/FortuneServer.pro -spec linux-g++ CONFIG+=debug -o Makefile ) && $(MAKE) -f Makefile uninstall
+sub-RendezVous-qmake_all:  FORCE
+	@test -d RendezVous/ || mkdir -p RendezVous/
+	cd RendezVous/ && $(QMAKE) /home/cyrildz/Project/CafActorTest/RendezVous/RendezVous.pro -spec linux-g++ CONFIG+=debug -o Makefile
+	cd RendezVous/ && $(MAKE) -f Makefile qmake_all
+sub-RendezVous: FORCE
+	@test -d RendezVous/ || mkdir -p RendezVous/
+	cd RendezVous/ && ( test -e Makefile || $(QMAKE) /home/cyrildz/Project/CafActorTest/RendezVous/RendezVous.pro -spec linux-g++ CONFIG+=debug -o Makefile ) && $(MAKE) -f Makefile
+sub-RendezVous-make_first: FORCE
+	@test -d RendezVous/ || mkdir -p RendezVous/
+	cd RendezVous/ && ( test -e Makefile || $(QMAKE) /home/cyrildz/Project/CafActorTest/RendezVous/RendezVous.pro -spec linux-g++ CONFIG+=debug -o Makefile ) && $(MAKE) -f Makefile 
+sub-RendezVous-all: FORCE
+	@test -d RendezVous/ || mkdir -p RendezVous/
+	cd RendezVous/ && ( test -e Makefile || $(QMAKE) /home/cyrildz/Project/CafActorTest/RendezVous/RendezVous.pro -spec linux-g++ CONFIG+=debug -o Makefile ) && $(MAKE) -f Makefile all
+sub-RendezVous-clean: FORCE
+	@test -d RendezVous/ || mkdir -p RendezVous/
+	cd RendezVous/ && ( test -e Makefile || $(QMAKE) /home/cyrildz/Project/CafActorTest/RendezVous/RendezVous.pro -spec linux-g++ CONFIG+=debug -o Makefile ) && $(MAKE) -f Makefile clean
+sub-RendezVous-distclean: FORCE
+	@test -d RendezVous/ || mkdir -p RendezVous/
+	cd RendezVous/ && ( test -e Makefile || $(QMAKE) /home/cyrildz/Project/CafActorTest/RendezVous/RendezVous.pro -spec linux-g++ CONFIG+=debug -o Makefile ) && $(MAKE) -f Makefile distclean
+sub-RendezVous-install_subtargets: FORCE
+	@test -d RendezVous/ || mkdir -p RendezVous/
+	cd RendezVous/ && ( test -e Makefile || $(QMAKE) /home/cyrildz/Project/CafActorTest/RendezVous/RendezVous.pro -spec linux-g++ CONFIG+=debug -o Makefile ) && $(MAKE) -f Makefile install
+sub-RendezVous-uninstall_subtargets: FORCE
+	@test -d RendezVous/ || mkdir -p RendezVous/
+	cd RendezVous/ && ( test -e Makefile || $(QMAKE) /home/cyrildz/Project/CafActorTest/RendezVous/RendezVous.pro -spec linux-g++ CONFIG+=debug -o Makefile ) && $(MAKE) -f Makefile uninstall
 
 Makefile: CafActorTest.pro ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/linux-g++/qmake.conf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/features/spec_pre.prf \
 		../../Qt/Qt5.4/5.4/gcc_64/mkspecs/common/shell-unix.conf \
@@ -367,15 +393,15 @@ CafActorTest.pro:
 qmake: FORCE
 	@$(QMAKE) -spec linux-g++ CONFIG+=debug -o Makefile CafActorTest.pro
 
-qmake_all: sub-FunctionEvaluator-qmake_all sub-SimpleChatClient-qmake_all sub-SimpleChatServer-qmake_all sub-FortuneServer-qmake_all FORCE
+qmake_all: sub-FunctionEvaluator-qmake_all sub-SimpleChatClient-qmake_all sub-SimpleChatServer-qmake_all sub-FortuneServer-qmake_all sub-RendezVous-qmake_all FORCE
 
-make_first: sub-FunctionEvaluator-make_first sub-SimpleChatClient-make_first sub-SimpleChatServer-make_first sub-FortuneServer-make_first FORCE
-all: sub-FunctionEvaluator-all sub-SimpleChatClient-all sub-SimpleChatServer-all sub-FortuneServer-all FORCE
-clean: sub-FunctionEvaluator-clean sub-SimpleChatClient-clean sub-SimpleChatServer-clean sub-FortuneServer-clean FORCE
-distclean: sub-FunctionEvaluator-distclean sub-SimpleChatClient-distclean sub-SimpleChatServer-distclean sub-FortuneServer-distclean FORCE
+make_first: sub-FunctionEvaluator-make_first sub-SimpleChatClient-make_first sub-SimpleChatServer-make_first sub-FortuneServer-make_first sub-RendezVous-make_first FORCE
+all: sub-FunctionEvaluator-all sub-SimpleChatClient-all sub-SimpleChatServer-all sub-FortuneServer-all sub-RendezVous-all FORCE
+clean: sub-FunctionEvaluator-clean sub-SimpleChatClient-clean sub-SimpleChatServer-clean sub-FortuneServer-clean sub-RendezVous-clean FORCE
+distclean: sub-FunctionEvaluator-distclean sub-SimpleChatClient-distclean sub-SimpleChatServer-distclean sub-FortuneServer-distclean sub-RendezVous-distclean FORCE
 	-$(DEL_FILE) Makefile
-install_subtargets: sub-FunctionEvaluator-install_subtargets sub-SimpleChatClient-install_subtargets sub-SimpleChatServer-install_subtargets sub-FortuneServer-install_subtargets FORCE
-uninstall_subtargets: sub-FunctionEvaluator-uninstall_subtargets sub-SimpleChatClient-uninstall_subtargets sub-SimpleChatServer-uninstall_subtargets sub-FortuneServer-uninstall_subtargets FORCE
+install_subtargets: sub-FunctionEvaluator-install_subtargets sub-SimpleChatClient-install_subtargets sub-SimpleChatServer-install_subtargets sub-FortuneServer-install_subtargets sub-RendezVous-install_subtargets FORCE
+uninstall_subtargets: sub-FunctionEvaluator-uninstall_subtargets sub-SimpleChatClient-uninstall_subtargets sub-SimpleChatServer-uninstall_subtargets sub-FortuneServer-uninstall_subtargets sub-RendezVous-uninstall_subtargets FORCE
 
 sub-FunctionEvaluator-check:
 	@test -d FunctionEvaluator/ || mkdir -p FunctionEvaluator/
@@ -389,7 +415,10 @@ sub-SimpleChatServer-check:
 sub-FortuneServer-check:
 	@test -d FortuneServer/ || mkdir -p FortuneServer/
 	cd FortuneServer/ && ( test -e Makefile || $(QMAKE) /home/cyrildz/Project/CafActorTest/FortuneServer/FortuneServer.pro -spec linux-g++ CONFIG+=debug -o Makefile ) && $(MAKE) -f Makefile check
-check: sub-FunctionEvaluator-check sub-SimpleChatClient-check sub-SimpleChatServer-check sub-FortuneServer-check
+sub-RendezVous-check:
+	@test -d RendezVous/ || mkdir -p RendezVous/
+	cd RendezVous/ && ( test -e Makefile || $(QMAKE) /home/cyrildz/Project/CafActorTest/RendezVous/RendezVous.pro -spec linux-g++ CONFIG+=debug -o Makefile ) && $(MAKE) -f Makefile check
+check: sub-FunctionEvaluator-check sub-SimpleChatClient-check sub-SimpleChatServer-check sub-FortuneServer-check sub-RendezVous-check
 install: install_subtargets  FORCE
 
 uninstall:  uninstall_subtargets FORCE
@@ -399,7 +428,7 @@ FORCE:
 dist: distdir FORCE
 	(cd `dirname $(DISTDIR)` && $(TAR) $(DISTNAME).tar $(DISTNAME) && $(COMPRESS) $(DISTNAME).tar) && $(MOVE) `dirname $(DISTDIR)`/$(DISTNAME).tar.gz . && $(DEL_FILE) -r $(DISTDIR)
 
-distdir: sub-FunctionEvaluator-distdir sub-SimpleChatClient-distdir sub-SimpleChatServer-distdir sub-FortuneServer-distdir FORCE
+distdir: sub-FunctionEvaluator-distdir sub-SimpleChatClient-distdir sub-SimpleChatServer-distdir sub-FortuneServer-distdir sub-RendezVous-distdir FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/features/spec_pre.prf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/common/shell-unix.conf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/common/unix.conf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/common/linux.conf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/common/gcc-base.conf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/common/gcc-base-unix.conf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/common/g++-base.conf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/common/g++-unix.conf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/qconfig.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_bluetooth.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_bluetooth_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_bootstrap_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_clucene_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_concurrent.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_concurrent_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_core.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_core_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_dbus.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_dbus_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_declarative.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_declarative_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_designer.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_designer_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_designercomponents_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_enginio.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_enginio_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_gui.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_gui_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_help.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_help_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_location.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_location_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_multimedia.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_multimedia_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_multimediawidgets.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_multimediawidgets_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_network.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_network_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_nfc.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_nfc_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_opengl.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_opengl_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_openglextensions.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_openglextensions_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_platformsupport_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_positioning.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_positioning_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_printsupport.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_printsupport_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_qml.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_qml_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_qmldevtools_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_qmltest.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_qmltest_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_quick.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_quick_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_quickparticles_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_quickwidgets.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_quickwidgets_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_script.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_script_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_scripttools.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_scripttools_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_sensors.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_sensors_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_serialport.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_serialport_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_sql.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_sql_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_svg.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_svg_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_testlib.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_testlib_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_uitools.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_uitools_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_webchannel.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_webchannel_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_webengine.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_webengine_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_webenginecore.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_webenginecore_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_webenginewidgets.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_webenginewidgets_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_webkit.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_webkit_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_webkitwidgets.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_webkitwidgets_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_websockets.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_websockets_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_webview.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_webview_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_widgets.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_widgets_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_x11extras.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_x11extras_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_xml.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_xml_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_xmlpatterns.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/modules/qt_lib_xmlpatterns_private.pri ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/features/qt_functions.prf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/features/qt_config.prf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/linux-g++/qmake.conf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/features/spec_post.prf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/features/exclusive_builds.prf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/features/default_pre.prf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/features/resolve_config.prf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/features/default_post.prf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/features/warn_on.prf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/features/testcase_targets.prf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/features/exceptions.prf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/features/yacc.prf ../../Qt/Qt5.4/5.4/gcc_64/mkspecs/features/lex.prf CafActorTest.pro $(DISTDIR)/
 
@@ -418,4 +447,8 @@ sub-SimpleChatServer-distdir: FORCE
 sub-FortuneServer-distdir: FORCE
 	@test -d FortuneServer/ || mkdir -p FortuneServer/
 	cd FortuneServer/ && ( test -e Makefile || $(QMAKE) /home/cyrildz/Project/CafActorTest/FortuneServer/FortuneServer.pro -spec linux-g++ CONFIG+=debug -o Makefile ) && $(MAKE) -e -f Makefile distdir DISTDIR=$(DISTDIR)/FortuneServer
+
+sub-RendezVous-distdir: FORCE
+	@test -d RendezVous/ || mkdir -p RendezVous/
+	cd RendezVous/ && ( test -e Makefile || $(QMAKE) /home/cyrildz/Project/CafActorTest/RendezVous/RendezVous.pro -spec linux-g++ CONFIG+=debug -o Makefile ) && $(MAKE) -e -f Makefile distdir DISTDIR=$(DISTDIR)/RendezVous
 
